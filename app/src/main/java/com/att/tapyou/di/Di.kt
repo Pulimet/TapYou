@@ -1,11 +1,14 @@
 package com.att.tapyou.di
 
 import android.content.Context
-import com.att.tapyou.utils.KoinLogs
-import com.att.tapyou.utils.logE
-import com.att.tapyou.utils.logI
+import com.att.tapyou.utils.logs.KoinLogs
+import com.att.tapyou.utils.logs.OkHttpLogs
+import com.att.tapyou.utils.logs.logE
+import com.att.tapyou.utils.logs.logI
+import com.att.tapyou.utils.network.NetworkObjectsCreator
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
+import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
@@ -17,7 +20,7 @@ object Di {
             startKoin {
                 logger(KoinLogs())
                 androidContext(applicationContext)
-                modules(appModule)
+                modules(appModule, networkModule)
             }
         }
         logI("=== DI is ready (timeInMillis: $timeInMillis)===")
@@ -31,5 +34,10 @@ object Di {
                 throw e
             }
         }
+    }
+
+    private val networkModule = module {
+        single<HttpLoggingInterceptor.Logger> { OkHttpLogs() }
+        single { NetworkObjectsCreator.createOkHttpClient(get()) }
     }
 }

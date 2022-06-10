@@ -1,9 +1,9 @@
-package com.att.tapyou.utils
+package com.att.tapyou.utils.logs
 
 import android.util.Log
 import com.att.tapyou.BuildConfig
-import com.att.tapyou.utils.Logger.logIt
-import com.att.tapyou.utils.Logger.whoIsCallingMe
+import com.att.tapyou.utils.logs.Logger.logIt
+import com.att.tapyou.utils.logs.Logger.whoIsCallingMe
 import java.io.PrintWriter
 import java.io.StringWriter
 import java.text.DateFormat

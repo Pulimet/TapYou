@@ -1,4 +1,4 @@
-package com.att.tapyou.utils
+package com.att.tapyou.utils.logs
 
 import com.att.tapyou.BuildConfig
 import org.koin.core.logger.Level
