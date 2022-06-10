@@ -27,7 +27,7 @@ class HomeViewModel(
         fetchVideosIdsList(query)
     }
 
-    private fun fetchVideosIdsList(query: String = "Queen") {
+    private fun fetchVideosIdsList(query: String = "Banana") {
         viewModelScope.launch(ioCoroutineContext) {
             val list = youTubeRepo.getVideos(query)
             _videoIdsList.value = list

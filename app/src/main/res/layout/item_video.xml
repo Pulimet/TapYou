@@ -5,26 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <!--   <TextView
-           android:id="@+id/tvId"
-           android:layout_width="0dp"
-           android:layout_height="wrap_content"
-           android:gravity="center"
-           app:layout_constraintBottom_toBottomOf="parent"
-           app:layout_constraintEnd_toEndOf="parent"
-           app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintTop_toTopOf="parent"
-           tools:text="gfssdg34534fd" />-->
-
     <WebView
         android:id="@+id/webView"
         android:layout_width="0dp"
-        android:layout_height="300dp"
+        android:layout_height="370dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="WebViewLayout" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
