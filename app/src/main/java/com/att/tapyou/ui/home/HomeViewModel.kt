@@ -12,10 +12,15 @@ class HomeViewModel(
     private val ioCoroutineContext: CoroutineContext
 ) : BaseViewModel() {
 
+    @Suppress("BlockingMethodInNonBlockingContext") // IO dispatcher used
     fun testIt() {
         viewModelScope.launch(ioCoroutineContext) {
-            val result = youTubeRepo.getVideos("Queen")
-            logD("Result: ${result.string().substring(0, 100)}")
+            val result = youTubeRepo.getVideos("Queen").string()
+            logD("Result: ${result.substring(0, 100)}")
+
+            Regex("\\?v=.{1,11}\"").findAll(result).forEach { matchResult ->
+                logD("ID: ${matchResult.value.substring(3, matchResult.value.length - 1)}")
+            }
         }
     }
 
