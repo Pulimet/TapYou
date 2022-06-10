@@ -3,7 +3,8 @@ package com.att.tapyou.ui.home
 import androidx.lifecycle.viewModelScope
 import com.att.tapyou.repos.YouTubeRepo
 import com.att.tapyou.ui.base.BaseViewModel
-import com.att.tapyou.utils.logs.logD
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
@@ -12,15 +13,18 @@ class HomeViewModel(
     private val ioCoroutineContext: CoroutineContext
 ) : BaseViewModel() {
 
-    @Suppress("BlockingMethodInNonBlockingContext") // IO dispatcher used
-    fun testIt() {
-        viewModelScope.launch(ioCoroutineContext) {
-            val result = youTubeRepo.getVideos("Queen").string()
-            logD("Result: ${result.substring(0, 100)}")
+    private val _videoIdsList = MutableStateFlow<List<String>>(emptyList())
+    val videoIdsList: StateFlow<List<String>> = _videoIdsList
 
-            Regex("\\?v=.{1,11}\"").findAll(result).forEach { matchResult ->
-                logD("ID: ${matchResult.value.substring(3, matchResult.value.length - 1)}")
-            }
+
+    fun onViewCreated() {
+        fetchVideosIdsList()
+    }
+
+    private fun fetchVideosIdsList() {
+        viewModelScope.launch(ioCoroutineContext) {
+            val list = youTubeRepo.getVideos("Queen")
+            _videoIdsList.value = list
         }
     }
 
