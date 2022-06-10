@@ -1,4 +1,4 @@
-package com.att.tapyou.utils.network
+package com.att.tapyou.network
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

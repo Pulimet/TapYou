@@ -1,11 +1,14 @@
 package com.att.tapyou.di
 
 import android.content.Context
+import com.att.tapyou.network.NetworkConstants
+import com.att.tapyou.network.NetworkObjectsCreator
+import com.att.tapyou.network.NetworkObjectsCreator.createWebService
+import com.att.tapyou.network.services.YouTubeService
 import com.att.tapyou.utils.logs.KoinLogs
 import com.att.tapyou.utils.logs.OkHttpLogs
 import com.att.tapyou.utils.logs.logE
 import com.att.tapyou.utils.logs.logI
-import com.att.tapyou.utils.network.NetworkObjectsCreator
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import okhttp3.logging.HttpLoggingInterceptor
@@ -39,5 +42,6 @@ object Di {
     private val networkModule = module {
         single<HttpLoggingInterceptor.Logger> { OkHttpLogs() }
         single { NetworkObjectsCreator.createOkHttpClient(get()) }
+        single { createWebService<YouTubeService>(get(), NetworkConstants.YOUTUBE_BASE_URL) }
     }
 }
