@@ -2,6 +2,7 @@ package com.att.tapyou.ui.home
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.att.tapyou.R
@@ -11,7 +12,7 @@ import com.att.tapyou.utils.extensions.Extensions.collectIt
 import com.att.tapyou.utils.logs.logD
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class HomeFragment : Fragment(R.layout.fragment_home) {
+class HomeFragment : Fragment(R.layout.fragment_home), SearchView.OnQueryTextListener {
     private val binding by FragmentBinding(FragmentHomeBinding::bind)
     private val viewModel by viewModel<HomeViewModel>()
     private var linearLayoutManager: LinearLayoutManager? = null
@@ -21,6 +22,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.onViewCreated()
         setRecyclerView()
+        setSearchView()
         observeViewModels()
     }
 
@@ -31,6 +33,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
+    private fun setSearchView() {
+        binding.searchView.apply {
+            setOnQueryTextListener(this@HomeFragment)
+        }
+    }
+
     private fun observeViewModels() {
         viewModel.apply {
             videoIdsList.collectIt(viewLifecycleOwner) {
@@ -38,5 +46,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 videosAdapter?.submitList(it)
             }
         }
+    }
+
+    // SearchView.OnQueryTextListener
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        viewModel.onQueryTextSubmit(query ?: "")
+        return false
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        return false
     }
 }
