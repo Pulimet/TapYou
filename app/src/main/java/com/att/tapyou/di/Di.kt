@@ -5,6 +5,7 @@ import com.att.tapyou.network.NetworkConstants
 import com.att.tapyou.network.NetworkObjectsCreator
 import com.att.tapyou.network.NetworkObjectsCreator.createWebService
 import com.att.tapyou.network.services.YouTubeService
+import com.att.tapyou.ui.navigation.NavViewModel
 import com.att.tapyou.utils.logs.KoinLogs
 import com.att.tapyou.utils.logs.OkHttpLogs
 import com.att.tapyou.utils.logs.logE
@@ -13,6 +14,7 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
+import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
 import kotlin.system.measureTimeMillis
@@ -37,6 +39,9 @@ object Di {
                 throw e
             }
         }
+
+        // ViewModels
+        viewModelOf(::NavViewModel)
     }
 
     private val networkModule = module {
