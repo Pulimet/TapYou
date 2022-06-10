@@ -18,6 +18,6 @@ class VideoHolder(v: View) : RecyclerView.ViewHolder(v) {
             loadData(data, "text/html; charset=utf-8", "UTF-8")
         }
 
+        // TODO Inject CSS code to hide YouTube overlays
     }
-
 }
