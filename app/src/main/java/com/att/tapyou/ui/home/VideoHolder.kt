@@ -12,11 +12,12 @@ class VideoHolder(v: View) : RecyclerView.ViewHolder(v) {
     @SuppressLint("SetJavaScriptEnabled")
     fun onBindViewHolder(id: String?) {
         val data =
-            "<iframe width='560' height='315' src='https://www.youtube.com/embed/$id' frameborder='0' allow='accelerometer; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>"
+            "<iframe src='https://www.youtube-nocookie.com/embed/$id?rel=0&autohide=1&showinfo=0&controls=0&fs=0' width='400' height='280' frameborder='0' modestbranding='1'></iframe>"
         binding.webView.apply {
             settings.javaScriptEnabled = true
             loadData(data, "text/html; charset=utf-8", "UTF-8")
         }
+
     }
 
 }
